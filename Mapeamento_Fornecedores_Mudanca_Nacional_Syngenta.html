@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mapeamento de Fornecedores – Mudança Nacional | Syngenta</title>
+<style>
+  :root{--green:#1a7a3c;--green-light:#e8f5ee;--green-dark:#145f2f;--gray:#f5f5f5;--border:#ddd;--red:#c0392b;--yellow:#fff3cd;--yellow-border:#ffc107;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f0;color:#222;min-height:100vh;}
+  /* HEADER */
+  header{background:var(--green);color:#fff;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18);}
+  .logo{display:flex;align-items:center;gap:12px;font-size:1.3rem;font-weight:700;letter-spacing:.5px;}
+  .logo svg{width:36px;height:36px;}
+  .nav-tabs{display:flex;gap:4px;}
+  .nav-tab{background:rgba(255,255,255,.15);color:#fff;border:none;padding:8px 22px;border-radius:6px 6px 0 0;cursor:pointer;font-size:.95rem;font-weight:600;transition:background .2s;}
+  .nav-tab.active{background:#fff;color:var(--green);}
+  .nav-tab:hover:not(.active){background:rgba(255,255,255,.28);}
+  /* BANNER */
+  .banner{background:#e8f5ee;border-left:4px solid var(--green);padding:12px 20px;margin:20px 24px 0;border-radius:4px;font-size:.92rem;color:var(--green-dark);}
+  /* PROGRESS */
+  .progress-wrap{margin:16px 24px 0;background:#fff;border-radius:8px;padding:14px 18px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+  .progress-label{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:6px;color:#555;}
+  .progress-bar-bg{background:#e0e0e0;border-radius:99px;height:10px;}
+  .progress-bar{background:var(--green);height:10px;border-radius:99px;transition:width .4s;}
+  /* TABS CONTENT */
+  .tab-content{display:none;padding:20px 24px 40px;}
+  .tab-content.active{display:block;}
+  /* FORM */
+  .section-card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.09);margin-bottom:22px;overflow:hidden;}
+  .section-header{background:var(--green);color:#fff;padding:13px 20px;font-size:1rem;font-weight:700;display:flex;align-items:center;gap:10px;}
+  .section-body{padding:20px;}
+  .field-row{margin-bottom:18px;}
+  label.field-label{display:block;font-weight:600;font-size:.92rem;margin-bottom:6px;color:#333;}
+  label.field-label .req{color:var(--red);margin-left:2px;}
+  input[type=text],input[type=number],input[type=email],select,textarea{width:100%;border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:.93rem;font-family:inherit;background:#fafafa;transition:border-color .2s;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green);background:#fff;}
+  textarea{resize:vertical;min-height:70px;}
+  .hint{font-size:.8rem;color:#777;margin-top:4px;}
+  .radio-group{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
+  .radio-group label{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:.92rem;}
+  .detail-block{margin-top:8px;}
+  .detail-block label.field-label{font-weight:500;color:#555;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}.nav-tab{padding:8px 12px;font-size:.83rem;}}
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border:none;border-radius:7px;cursor:pointer;font-size:.95rem;font-weight:600;transition:opacity .2s;}
+  .btn-primary{background:var(--green);color:#fff;}
+  .btn-primary:hover{opacity:.88;}
+  .btn-secondary{background:#fff;color:var(--green);border:2px solid var(--green);}
+  .btn-secondary:hover{background:var(--green-light);}
+  .btn-danger{background:var(--red);color:#fff;}
+  .btn-sm{padding:6px 14px;font-size:.84rem;}
+  .form-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;}
+  /* SAVED */
+  .supplier-card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.09);padding:18px 20px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .supplier-info h3{font-size:1rem;color:var(--green-dark);margin-bottom:4px;}
+  .supplier-info p{font-size:.84rem;color:#666;}
+  .fill-bar{width:160px;background:#e0e0e0;border-radius:99px;height:8px;margin-top:6px;}
+  .fill-bar-inner{background:var(--green);height:8px;border-radius:99px;}
+  .supplier-actions{display:flex;gap:8px;}
+  .empty-state{text-align:center;padding:48px 20px;color:#999;font-size:.97rem;}
+  /* COMPARATIVE */
+  .compare-wrap{overflow-x:auto;}
+  table.compare-table{width:100%;border-collapse:collapse;font-size:.83rem;min-width:500px;}
+  .compare-table th{background:var(--green);color:#fff;padding:9px 12px;text-align:left;white-space:nowrap;}
+  .compare-table td{padding:8px 12px;border-bottom:1px solid #eee;vertical-align:top;}
+  .compare-table tr:nth-child(even) td{background:#f9f9f9;}
+  .compare-table .row-section{background:var(--green-light);font-weight:700;color:var(--green-dark);}
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;align-items:center;justify-content:center;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:#fff;border-radius:12px;padding:30px;max-width:420px;width:90%;text-align:center;}
+  .modal-box h2{margin-bottom:12px;color:var(--red);}
+  .modal-box p{margin-bottom:22px;color:#555;}
+  .modal-actions{display:flex;gap:12px;justify-content:center;}
+  /* ECOVADIS WARNING */
+  .ecovadis-warn{background:var(--yellow);border:1px solid var(--yellow-border);border-radius:7px;padding:14px 18px;margin-top:10px;font-size:.9rem;}
+  /* UPLOAD */
+  input[type=file]{padding:6px;background:#fff;}
+  /* Toast */
+  #toast{position:fixed;bottom:28px;right:28px;background:var(--green);color:#fff;padding:13px 22px;border-radius:8px;font-size:.93rem;box-shadow:0 4px 16px rgba(0,0,0,.18);display:none;z-index:9999;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M10 22c2-6 8-12 16-10-4 2-8 6-9 10H10z" fill="#1a7a3c"/><path d="M18 26c0-4 3-9 8-10-2 4-3 8-8 10z" fill="#1a7a3c"/></svg>
+    Syngenta &nbsp;|&nbsp; Mapeamento Fornecedores – Mudança Nacional
+  </div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('formulario')">📋 Formulário</button>
+    <button class="nav-tab" onclick="switchTab('salvos')">💾 Fornecedores Salvos</button>
+    <button class="nav-tab" onclick="switchTab('comparativo')">📊 Comparativo</button>
+  </nav>
+</header>
+
+<!-- BANNER -->
+<div class="banner">ℹ️ <strong>Aviso:</strong> Este formulário é parte do processo de mapeamento de mercado da Syngenta. <strong>Não constitui convite formal à cotação.</strong></div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-label"><span>Progresso de preenchimento</span><span id="prog-pct">0%</span></div>
+  <div class="progress-bar-bg"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+</div>
+
+<!-- =================== TAB: FORMULÁRIO =================== -->
+<div id="tab-formulario" class="tab-content active">
+<form id="supplierForm" novalidate>
+
+<!-- SEÇÃO 1 -->
+<div class="section-card">
+  <div class="section-header">📌 Seção 1 – Identificação e Perfil da Empresa</div>
+  <div class="section-body">
+    <div class="two-col">
+      <div class="field-row"><label class="field-label">Razão Social<span class="req">*</span></label><input type="text" id="razao_social" required></div>
+      <div class="field-row"><label class="field-label">Nome Fantasia<span class="req">*</span></label><input type="text" id="nome_fantasia" required></div>
+    </div>
+    <div class="two-col">
+      <div class="field-row"><label class="field-label">CNPJ<span class="req">*</span></label><input type="text" id="cnpj" maxlength="18" placeholder="00.000.000/0000-00" required></div>
+      <div class="field-row"><label class="field-label">Cidade e Estado da Matriz<span class="req">*</span></label><input type="text" id="cidade_estado" required></div>
+    </div>
+    <div class="field-row"><label class="field-label">Regime Tributário<span class="req">*</span></label>
+      <select id="regime_tributario" required><option value="">Selecione...</option><option>Simples Nacional</option><option>Lucro Presumido</option><option>Lucro Real</option></select>
+    </div>
+    <div class="field-row"><label class="field-label">A empresa possui filiais?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="tem_filiais" value="Sim"> Sim</label>
+        <label><input type="radio" name="tem_filiais" value="Não"> Não</label>
+      </div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="tem_filiais_det" placeholder="Listar as cidades/estados onde possui filiais"></textarea></div>
+    </div>
+    <div class="two-col">
+      <div class="field-row"><label class="field-label">Há quantos anos está no mercado?</label><input type="number" id="anos_mercado" min="0"></div>
+      <div class="field-row"><label class="field-label">Há quanto tempo opera como empresa de mudanças nacional?</label><input type="number" id="anos_mudancas" min="0"></div>
+    </div>
+    <div class="field-row"><label class="field-label">Quais serviços são prestados?</label><textarea id="servicos_prestados"></textarea></div>
+    <div class="field-row"><label class="field-label">São especializados em mudanças corporativas?</label>
+      <div class="radio-group"><label><input type="radio" name="corp" value="Sim"> Sim</label><label><input type="radio" name="corp" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="corp_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Presta serviço para empresas do agronegócio?</label>
+      <div class="radio-group"><label><input type="radio" name="agro" value="Sim"> Sim</label><label><input type="radio" name="agro" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="agro_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Quais são seus principais concorrentes?</label><textarea id="concorrentes"></textarea></div>
+    <div class="field-row"><label class="field-label">Qual o seu diferencial frente aos concorrentes?</label><textarea id="diferencial"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 2 -->
+<div class="section-card">
+  <div class="section-header">👥 Seção 2 – Estrutura de Pessoal</div>
+  <div class="section-body">
+    <div class="two-col">
+      <div class="field-row"><label class="field-label">Nº de funcionários CLT Interno</label><input type="number" id="func_clt" min="0"></div>
+      <div class="field-row"><label class="field-label">Nº de funcionários Terceiros</label><input type="number" id="func_terc" min="0"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 3 -->
+<div class="section-card">
+  <div class="section-header">🗺️ Seção 3 – Cobertura Geográfica e Capilaridade</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Possuem histórico comprovado de mudanças em todos os estados do Brasil?</label>
+      <div class="radio-group"><label><input type="radio" name="historico_estados" value="Sim"> Sim</label><label><input type="radio" name="historico_estados" value="Não"> Não</label><label><input type="radio" name="historico_estados" value="Parcial"> Parcial</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="historico_estados_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Enviar lista da frota no Brasil – incluindo cidades da frota própria e terceira</label><input type="file" id="arquivo_frota" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx"></div>
+    <div class="field-row"><label class="field-label">Em quais cidades a empresa tem frota própria?</label><textarea id="cidades_frota"></textarea></div>
+    <div class="field-row"><label class="field-label">Tem parcerias com empresas locais em diferentes regiões?</label>
+      <div class="radio-group"><label><input type="radio" name="parcerias" value="Sim"> Sim</label><label><input type="radio" name="parcerias" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="parcerias_det" placeholder="Em quais cidades/regiões?"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Como coordenam a logística em múltiplos locais?</label><textarea id="logistica_multi"></textarea></div>
+    <div class="field-row"><label class="field-label">Como garante a qualidade do serviço próprio?</label><textarea id="qualidade_proprio"></textarea></div>
+    <div class="field-row"><label class="field-label">Como garante a qualidade do serviço dos parceiros?</label><textarea id="qualidade_parceiros"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 4 -->
+<div class="section-card">
+  <div class="section-header">🚛 Seção 4 – Frota</div>
+  <div class="section-body">
+    <div class="two-col">
+      <div class="field-row"><label class="field-label">Nº de veículos frota própria</label><input type="number" id="veic_proprio" min="0"></div>
+      <div class="field-row"><label class="field-label">Nº de veículos frota terceirizada</label><input type="number" id="veic_terc" min="0"></div>
+    </div>
+    <div class="field-row"><label class="field-label">Tipos de veículos disponíveis</label><textarea id="tipos_veiculos"></textarea></div>
+    <div class="field-row"><label class="field-label">Capacidade de carga por tipo</label><textarea id="capacidade_carga"></textarea></div>
+    <div class="field-row"><label class="field-label">Há restrições quanto ao tipo de itens transportados?</label>
+      <div class="radio-group"><label><input type="radio" name="restricoes_itens" value="Sim"> Sim</label><label><input type="radio" name="restricoes_itens" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="restricoes_itens_det"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 5 -->
+<div class="section-card">
+  <div class="section-header">🧑‍✈️ Seção 5 – Motoristas</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Os motoristas são próprios ou terceirizados?</label>
+      <div class="radio-group"><label><input type="radio" name="motoristas_tipo" value="Próprios"> Próprios</label><label><input type="radio" name="motoristas_tipo" value="Terceirizados"> Terceirizados</label><label><input type="radio" name="motoristas_tipo" value="Misto"> Misto</label></div>
+    </div>
+    <div class="field-row"><label class="field-label">Qual a experiência média em transporte de mudanças?</label><textarea id="exp_motoristas"></textarea></div>
+    <div class="field-row"><label class="field-label">Possuem todas as habilitações necessárias (CNH)?</label>
+      <div class="radio-group"><label><input type="radio" name="cnh" value="Sim"> Sim</label><label><input type="radio" name="cnh" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="cnh_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Receberam treinamento específico para transporte de bens pessoais?</label>
+      <div class="radio-group"><label><input type="radio" name="trein_bens" value="Sim"> Sim</label><label><input type="radio" name="trein_bens" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar os treinamentos realizados e a periodicidade:</label><textarea id="trein_bens_det" placeholder="Ex: Treinamento de manuseio de itens frágeis (anual), NR-11 (bienal), direção defensiva (semestral)..."></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Os motoristas auxiliam no carregamento/descarregamento?</label>
+      <div class="radio-group"><label><input type="radio" name="aux_carga" value="Auxiliam"> Auxiliam</label><label><input type="radio" name="aux_carga" value="Apenas dirigem"> Apenas dirigem</label><label><input type="radio" name="aux_carga" value="Depende do contrato"> Depende do contrato</label></div>
+    </div>
+    <div class="field-row"><label class="field-label">Existe protocolo de segurança durante as mudanças?</label>
+      <div class="radio-group"><label><input type="radio" name="prot_seg" value="Sim"> Sim</label><label><input type="radio" name="prot_seg" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="prot_seg_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Como é feita a comunicação com os motoristas durante o processo?</label><textarea id="com_motoristas"></textarea></div>
+    <div class="field-row"><label class="field-label">Existe histórico de avaliação de desempenho?</label>
+      <div class="radio-group"><label><input type="radio" name="aval_desemp" value="Sim"> Sim</label><label><input type="radio" name="aval_desemp" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="aval_desemp_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Os motoristas conhecem os procedimentos para documentação de danos?</label>
+      <div class="radio-group"><label><input type="radio" name="doc_danos" value="Sim"> Sim</label><label><input type="radio" name="doc_danos" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="doc_danos_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Existe limite de horas de direção contínua?</label>
+      <div class="radio-group"><label><input type="radio" name="limite_horas" value="Sim"> Sim</label><label><input type="radio" name="limite_horas" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="limite_horas_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Quais os protocolos em caso de emergências durante o transporte?</label><textarea id="emergencias"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 6 -->
+<div class="section-card">
+  <div class="section-header">📦 Seção 6 – Embalagem, Desembalagem e Içamento</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Como são os serviços de embalagem e desembalagem?</label><textarea id="embalagem_serv"></textarea></div>
+    <div class="field-row"><label class="field-label">Quais materiais utilizam?</label><textarea id="materiais_emb"></textarea></div>
+    <div class="field-row"><label class="field-label">Oferecem embalagens especiais para itens frágeis?</label>
+      <div class="radio-group"><label><input type="radio" name="emb_frageis" value="Sim"> Sim</label><label><input type="radio" name="emb_frageis" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="emb_frageis_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Embalam móveis e equipamentos na origem?</label>
+      <div class="radio-group"><label><input type="radio" name="emb_origem" value="Sim"> Sim</label><label><input type="radio" name="emb_origem" value="Não"> Não</label><label><input type="radio" name="emb_origem" value="Sob consulta"> Sob consulta</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="emb_origem_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Desembalam e montam no destino?</label>
+      <div class="radio-group"><label><input type="radio" name="desemb_dest" value="Sim"> Sim</label><label><input type="radio" name="desemb_dest" value="Não"> Não</label><label><input type="radio" name="desemb_dest" value="Sob consulta"> Sob consulta</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="desemb_dest_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">É feito descarte responsável de materiais?</label>
+      <div class="radio-group"><label><input type="radio" name="descarte" value="Sim"> Sim</label><label><input type="radio" name="descarte" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="descarte_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Descrever o processo de içamento (mecânico ou manual)</label><textarea id="icamento"></textarea></div>
+    <div class="field-row"><label class="field-label">Quais serviços estão excluídos do escopo padrão?</label><textarea id="excluidos_escopo"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 7 -->
+<div class="section-card">
+  <div class="section-header">🏭 Seção 7 – Armazenamento</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Oferecem armazenamento temporário ou de longo prazo?</label>
+      <div class="radio-group"><label><input type="radio" name="armazen" value="Sim"> Sim</label><label><input type="radio" name="armazen" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="armazen_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Como são as instalações e quais as medidas de segurança?</label><textarea id="instalacoes"></textarea></div>
+    <div class="field-row"><label class="field-label">Estrutura de custos do armazenamento (sem valores – apenas descrever o modelo)</label><textarea id="custo_armazen"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 8 -->
+<div class="section-card">
+  <div class="section-header">💻 Seção 8 – Tecnologia e Comunicação</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Utilizam tecnologia para rastrear mudanças online?</label>
+      <div class="radio-group"><label><input type="radio" name="rastreio" value="Sim"> Sim</label><label><input type="radio" name="rastreio" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="rastreio_det"></textarea></div>
+      <p class="hint">💡 Favor enviar apresentação da ferramenta</p>
+    </div>
+    <div class="field-row"><label class="field-label">Utilizam sistema para gerir e dar visibilidade dos processos?</label>
+      <div class="radio-group"><label><input type="radio" name="sistema_gestao" value="Sim"> Sim</label><label><input type="radio" name="sistema_gestao" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="sistema_gestao_det"></textarea></div>
+      <p class="hint">💡 Favor enviar apresentação da ferramenta</p>
+    </div>
+    <div class="field-row"><label class="field-label">Qual o processo de comunicação durante a mudança?</label><textarea id="com_mudanca"></textarea></div>
+    <div class="field-row"><label class="field-label">Fornecem ponto de contato dedicado 24h/7?</label>
+      <div class="radio-group"><label><input type="radio" name="contato_24h" value="Sim"> Sim</label><label><input type="radio" name="contato_24h" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="contato_24h_det" placeholder="Somente um contato central ou por localidade?"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Como lidam com problemas durante o processo?</label><textarea id="problemas_proc"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 9 -->
+<div class="section-card">
+  <div class="section-header">💰 Seção 9 – Custo e Estrutura de Preços</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Qual o modelo de precificação? A cobrança é da origem ao destino independentemente de onde estiver o caminhão?</label><textarea id="modelo_preco"></textarea></div>
+    <div class="field-row"><label class="field-label">Existem taxas ocultas ou sobretaxas?</label>
+      <div class="radio-group"><label><input type="radio" name="taxas_ocultas" value="Sim"> Sim</label><label><input type="radio" name="taxas_ocultas" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="taxas_ocultas_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Itens/serviços incluídos no escopo padrão (sem valores)</label><textarea id="incluidos_escopo"></textarea></div>
+    <div class="field-row"><label class="field-label">Itens/serviços excluídos do escopo padrão (sem valores)</label><textarea id="excluidos_escopo2"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 10 -->
+<div class="section-card">
+  <div class="section-header">🎯 Seção 10 – SLA e Qualidade</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Enviar SLAs e parâmetros de qualidade monitorados</label><input type="file" id="arquivo_sla" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx"></div>
+    <div class="field-row"><label class="field-label">Qual o percentual de ocorrências/problemas nos últimos 12 meses?</label><textarea id="pct_ocorrencias"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 11 -->
+<div class="section-card">
+  <div class="section-header">⭐ Seção 11 – Atendimento ao Cliente e Reputação</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Como descreve a reputação do atendimento?</label><textarea id="reputacao"></textarea></div>
+    <div class="field-row"><label class="field-label">Podem fornecer depoimentos ou avaliações de clientes?</label>
+      <div class="radio-group"><label><input type="radio" name="depoimentos" value="Sim"> Sim</label><label><input type="radio" name="depoimentos" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="depoimentos_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Como lidam com reclamações?</label><textarea id="reclamacoes"></textarea></div>
+    <div class="field-row"><label class="field-label">Qual o processo para resolução de disputas?</label><textarea id="disputas"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 12 -->
+<div class="section-card">
+  <div class="section-header">📄 Seção 12 – Documentação, Certificações e Requisitos Regulatórios</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">RNTRC válido?</label>
+      <div class="radio-group"><label><input type="radio" name="rntrc" value="Sim"> Sim</label><label><input type="radio" name="rntrc" value="Não"> Não</label><label><input type="radio" name="rntrc" value="Em renovação"> Em renovação</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="rntrc_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">CNT junto à ANTT?</label>
+      <div class="radio-group"><label><input type="radio" name="cnt" value="Sim"> Sim</label><label><input type="radio" name="cnt" value="Não"> Não</label><label><input type="radio" name="cnt" value="Em andamento"> Em andamento</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="cnt_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">CNPJ ativo, IE, Alvará e Licença em dia?</label>
+      <div class="radio-group"><label><input type="radio" name="docs_legais" value="Todos em dia"> Todos em dia</label><label><input type="radio" name="docs_legais" value="Parcialmente"> Parcialmente</label><label><input type="radio" name="docs_legais" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="docs_legais_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">ISO 9001?</label>
+      <div class="radio-group"><label><input type="radio" name="iso9001" value="Sim"> Sim</label><label><input type="radio" name="iso9001" value="Não"> Não</label><label><input type="radio" name="iso9001" value="Em processo"> Em processo</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="iso9001_det" placeholder="Informe a validade"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Filiada à ABRAFEM?</label>
+      <div class="radio-group"><label><input type="radio" name="abrafem" value="Sim"> Sim</label><label><input type="radio" name="abrafem" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="abrafem_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Seguro de RC?</label>
+      <div class="radio-group"><label><input type="radio" name="seg_rc" value="Sim"> Sim</label><label><input type="radio" name="seg_rc" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="seg_rc_det" placeholder="Informe seguradora e validade"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Seguro de Carga com cobertura de danos e perdas?</label>
+      <div class="radio-group"><label><input type="radio" name="seg_carga" value="Sim"> Sim</label><label><input type="radio" name="seg_carga" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="seg_carga_det" placeholder="Informe cobertura máxima e validade"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">CRLV atualizado e tacógrafo?</label>
+      <div class="radio-group"><label><input type="radio" name="crlv" value="Sim"> Sim</label><label><input type="radio" name="crlv" value="Parcialmente"> Parcialmente</label><label><input type="radio" name="crlv" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="crlv_det"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 13 -->
+<div class="section-card">
+  <div class="section-header">🔬 Seção 13 – Aspectos Regulatórios e Segurança Operacional</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Como realiza os exames toxicológicos periódicos? Qual a frequência?</label><textarea id="toxicologico"></textarea></div>
+    <div class="field-row"><label class="field-label">Implementa testes aleatórios de álcool e drogas?</label>
+      <div class="radio-group"><label><input type="radio" name="testes_alcool" value="Sim"> Sim</label><label><input type="radio" name="testes_alcool" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="testes_alcool_det" placeholder="Como é conduzido e comunicado?"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Quais procedimentos para monitorar comportamentos de risco?</label><textarea id="risco_comp"></textarea></div>
+    <div class="field-row"><label class="field-label">Possui políticas formalizadas sobre uso de substâncias?</label>
+      <div class="radio-group"><label><input type="radio" name="pol_substancias" value="Sim"> Sim</label><label><input type="radio" name="pol_substancias" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="pol_substancias_det"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 14 -->
+<div class="section-card">
+  <div class="section-header">❤️ Seção 14 – Saúde Ocupacional e Gestão Humanizada</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Desenvolve programas de prevenção de dependência química?</label>
+      <div class="radio-group"><label><input type="radio" name="prev_dep" value="Sim"> Sim</label><label><input type="radio" name="prev_dep" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="prev_dep_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Existem canais confidenciais para relato de problemas?</label>
+      <div class="radio-group"><label><input type="radio" name="canais_conf" value="Sim"> Sim</label><label><input type="radio" name="canais_conf" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="canais_conf_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Colaboradores têm acesso a PAE/EAP?</label>
+      <div class="radio-group"><label><input type="radio" name="pae" value="Sim"> Sim</label><label><input type="radio" name="pae" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="pae_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Mantém parcerias com clínicas especializadas?</label>
+      <div class="radio-group"><label><input type="radio" name="clinicas" value="Sim"> Sim</label><label><input type="radio" name="clinicas" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="clinicas_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Oferece treinamento para líderes identificarem sinais de dependência?</label>
+      <div class="radio-group"><label><input type="radio" name="trein_lideres" value="Sim"> Sim</label><label><input type="radio" name="trein_lideres" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="trein_lideres_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Como funciona a política de afastamento para tratamento? Existem garantias contra punições?</label><textarea id="afastamento_pol"></textarea></div>
+    <div class="field-row"><label class="field-label">Quais os procedimentos para reintegração gradual após tratamento?</label><textarea id="reintegracao"></textarea></div>
+    <div class="field-row"><label class="field-label">Como é feito o acompanhamento durante a recuperação?</label><textarea id="acomp_recup"></textarea></div>
+    <div class="field-row"><label class="field-label">Como equilibra confidencialidade médica e segurança operacional?</label><textarea id="conf_medica"></textarea></div>
+    <div class="field-row"><label class="field-label">Como evita a estigmatização de funcionários em tratamento?</label><textarea id="estigma"></textarea></div>
+    <div class="field-row"><label class="field-label">A empresa reconhece o estresse do motorista como fator de risco? Quais medidas preventivas?</label><textarea id="estresse_motorista"></textarea></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 15 -->
+<div class="section-card">
+  <div class="section-header">🌈 Seção 15 – Diversidade, Inclusão e Acessibilidade (D&I / PcD)</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Possui política de D&I?</label>
+      <div class="radio-group"><label><input type="radio" name="politica_di" value="Sim"> Sim</label><label><input type="radio" name="politica_di" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="politica_di_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">A equipe operacional é diversa?</label>
+      <div class="radio-group"><label><input type="radio" name="eq_diversa" value="Sim"> Sim</label><label><input type="radio" name="eq_diversa" value="Não"> Não</label><label><input type="radio" name="eq_diversa" value="Em construção"> Em construção</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="eq_diversa_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Possui metas de contratação inclusiva?</label>
+      <div class="radio-group"><label><input type="radio" name="metas_inc" value="Sim"> Sim</label><label><input type="radio" name="metas_inc" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="metas_inc_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Como promove conscientização sobre D&I?</label><textarea id="conscient_di"></textarea></div>
+    <div class="field-row"><label class="field-label">Como garante acessibilidade física durante mudanças para colaboradores com mobilidade reduzida?</label><textarea id="acessibilidade"></textarea></div>
+    <div class="field-row"><label class="field-label">Existem adaptações nos veículos/equipamentos para funcionários com deficiência?</label>
+      <div class="radio-group"><label><input type="radio" name="adapt_veic" value="Sim"> Sim</label><label><input type="radio" name="adapt_veic" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="adapt_veic_det"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 16 -->
+<div class="section-card">
+  <div class="section-header">🌱 Seção 16 – ESG – Responsabilidade Social e Ambiental</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Possui práticas de ESG?</label>
+      <div class="radio-group"><label><input type="radio" name="esg" value="Sim"> Sim</label><label><input type="radio" name="esg" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="esg_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Quais práticas sustentáveis são adotadas?</label><textarea id="sustentabilidade"></textarea></div>
+    <div class="field-row"><label class="field-label">A frota possui política de redução de emissões/carbono?</label>
+      <div class="radio-group"><label><input type="radio" name="emissoes" value="Sim"> Sim</label><label><input type="radio" name="emissoes" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="emissoes_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Realiza ações sociais nas comunidades onde opera?</label>
+      <div class="radio-group"><label><input type="radio" name="acoes_sociais" value="Sim"> Sim</label><label><input type="radio" name="acoes_sociais" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="acoes_sociais_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Existe programa de doação de materiais que não são reutilizados nas mudanças?</label>
+      <div class="radio-group"><label><input type="radio" name="doacao" value="Sim"> Sim</label><label><input type="radio" name="doacao" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="doacao_det"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 17 -->
+<div class="section-card">
+  <div class="section-header">⚖️ Seção 17 – Compliance e Anticorrupção</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Possui política formal contra discriminação e assédio?</label>
+      <div class="radio-group"><label><input type="radio" name="pol_assedio" value="Sim"> Sim</label><label><input type="radio" name="pol_assedio" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="pol_assedio_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">Nº de treinamentos sobre assédio nos últimos 12 meses</label><input type="number" id="trein_assedio" min="0"></div>
+    <div class="field-row"><label class="field-label">Existe canal de denúncias anônimo e independente?</label>
+      <div class="radio-group"><label><input type="radio" name="canal_denun" value="Sim"> Sim</label><label><input type="radio" name="canal_denun" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="canal_denun_det"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">% de denúncias investigadas nos últimos 12 meses</label><input type="text" id="pct_denuncias" placeholder="Ex: 100%"></div>
+    <div class="field-row"><label class="field-label">Nº de medidas disciplinares aplicadas em casos comprovados (últimos 12 meses)</label><input type="number" id="medidas_disc" min="0"></div>
+    <div class="field-row"><label class="field-label">Possui programa de compliance certificado?</label>
+      <div class="radio-group"><label><input type="radio" name="compliance_cert" value="Sim"> Sim</label><label><input type="radio" name="compliance_cert" value="Não"> Não</label></div>
+      <div class="detail-block"><label class="field-label">Detalhar, se necessário:</label><textarea id="compliance_cert_det" placeholder="Informe a certificação e validade"></textarea></div>
+    </div>
+    <div class="field-row"><label class="field-label">% de funcionários treinados em anticorrupção e suborno (últimos 12 meses)</label><input type="text" id="pct_anticorrup" placeholder="Ex: 90%"></div>
+    <div class="field-row"><label class="field-label">% de funcionários treinados em conflito de interesse, fraude e lavagem de dinheiro</label><input type="text" id="pct_fraude" placeholder="Ex: 85%"></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 18 -->
+<div class="section-card">
+  <div class="section-header">🌍 Seção 18 – EcoVadis</div>
+  <div class="section-body">
+    <div class="field-row"><label class="field-label">Faz parte do assessment EcoVadis?</label>
+      <div class="radio-group"><label><input type="radio" name="ecovadis" value="Sim" onclick="toggleEcovadis(true)"> Sim</label><label><input type="radio" name="ecovadis" value="Não" onclick="toggleEcovadis(false)"> Não</label></div>
+    </div>
+    <div id="ecovadis_sim" style="display:none">
+      <div class="two-col">
+        <div class="field-row"><label class="field-label">Nota EcoVadis</label><input type="number" id="ecovadis_nota" min="0" max="100" placeholder="0 – 100"></div>
+        <div class="field-row"><label class="field-label">Validade do Assessment</label><input type="text" id="ecovadis_val" placeholder="MM/AAAA"></div>
+      </div>
+    </div>
+    <div id="ecovadis_nao" style="display:none" class="ecovadis-warn">
+      ⚠️ <strong>Atenção:</strong> Para ser fornecedor da Syngenta é necessário estar com o assessment válido com nota acima de 45 ou completar a avaliação EcoVadis.<br>
+      Mais informações em <a href="https://ecovadis.com" target="_blank">ecovadis.com</a>.<br>
+      O fornecedor precisará arcar com as taxas de assinatura (<a href="https://ecovadis.com/plans-pricing/" target="_blank">ecovadis.com/plans-pricing/</a>).
+    </div>
+  </div>
+</div>
+
+<!-- BOTÕES FINAIS -->
+<div class="form-actions">
+  <button type="button" class="btn btn-primary" onclick="downloadFilledHTML()">⬇️ Download do Formulário Preenchido</button>
+  <button type="button" class="btn btn-secondary" onclick="saveOnly()">💾 Salvar Localmente</button>
+  <button type="button" class="btn btn-secondary" onclick="clearForm()">🗑️ Limpar Formulário</button>
+</div>
+
+</form>
+</div>
+
+<!-- =================== TAB: SALVOS =================== -->
+<div id="tab-salvos" class="tab-content">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+    <h2 style="color:var(--green-dark);font-size:1.1rem;">Fornecedores Salvos</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <label class="btn btn-primary btn-sm" style="cursor:pointer;">
+        📥 Importar HTML do Fornecedor
+        <input type="file" id="importFile" accept=".html" multiple style="display:none;" onchange="importSupplierHTML(this)">
+      </label>
+      <button class="btn btn-secondary btn-sm" onclick="exportJSON()">⬇️ Exportar JSON</button>
+    </div>
+  </div>
+  <div id="importFeedback" style="margin-bottom:12px;"></div>
+  <div id="savedList"></div>
+</div>
+
+<!-- =================== TAB: COMPARATIVO =================== -->
+<div id="tab-comparativo" class="tab-content">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+    <h2 style="color:var(--green-dark);font-size:1.1rem;">Comparativo de Fornecedores</h2>
+    <button class="btn btn-secondary btn-sm" onclick="exportCSV()">⬇️ Exportar CSV (Excel)</button>
+  </div>
+  <div class="compare-wrap" id="compareTable"></div>
+</div>
+
+<!-- MODAL CONFIRMAÇÃO EXCLUSÃO -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box">
+    <h2>⚠️ Confirmar Exclusão</h2>
+    <p>Tem certeza que deseja excluir este fornecedor? Esta ação não pode ser desfeita.</p>
+    <div class="modal-actions">
+      <button class="btn btn-danger" onclick="confirmDelete()">Excluir</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ===================== CAMPOS DO FORMULÁRIO =====================
+const FIELDS = [
+  {id:'razao_social',label:'Razão Social',sec:'Seção 1 – Identificação'},
+  {id:'nome_fantasia',label:'Nome Fantasia',sec:'Seção 1 – Identificação'},
+  {id:'cnpj',label:'CNPJ',sec:'Seção 1 – Identificação'},
+  {id:'cidade_estado',label:'Cidade/Estado Matriz',sec:'Seção 1 – Identificação'},
+  {id:'regime_tributario',label:'Regime Tributário',sec:'Seção 1 – Identificação'},
+  {id:'tem_filiais',label:'Possui Filiais',sec:'Seção 1 – Identificação',type:'radio'},
+  {id:'tem_filiais_det',label:'Filiais – Detalhe',sec:'Seção 1 – Identificação'},
+  {id:'anos_mercado',label:'Anos no Mercado',sec:'Seção 1 – Identificação'},
+  {id:'anos_mudancas',label:'Anos como Empresa de Mudanças',sec:'Seção 1 – Identificação'},
+  {id:'servicos_prestados',label:'Serviços Prestados',sec:'Seção 1 – Identificação'},
+  {id:'corp',label:'Especializ. em Mudanças Corporativas',sec:'Seção 1 – Identificação',type:'radio'},
+  {id:'corp_det',label:'Corporativas – Detalhe',sec:'Seção 1 – Identificação'},
+  {id:'agro',label:'Atende Agronegócio',sec:'Seção 1 – Identificação',type:'radio'},
+  {id:'agro_det',label:'Agronegócio – Detalhe',sec:'Seção 1 – Identificação'},
+  {id:'concorrentes',label:'Principais Concorrentes',sec:'Seção 1 – Identificação'},
+  {id:'diferencial',label:'Diferencial',sec:'Seção 1 – Identificação'},
+  {id:'func_clt',label:'Func. CLT Interno',sec:'Seção 2 – Pessoal'},
+  {id:'func_terc',label:'Func. Terceiros',sec:'Seção 2 – Pessoal'},
+  {id:'historico_estados',label:'Histórico em Todos os Estados',sec:'Seção 3 – Cobertura',type:'radio'},
+  {id:'historico_estados_det',label:'Histórico – Detalhe',sec:'Seção 3 – Cobertura'},
+  {id:'cidades_frota',label:'Cidades com Frota Própria',sec:'Seção 3 – Cobertura'},
+  {id:'parcerias',label:'Parcerias Regionais',sec:'Seção 3 – Cobertura',type:'radio'},
+  {id:'parcerias_det',label:'Parcerias – Detalhe',sec:'Seção 3 – Cobertura'},
+  {id:'logistica_multi',label:'Logística em Múltiplos Locais',sec:'Seção 3 – Cobertura'},
+  {id:'qualidade_proprio',label:'Qualidade Serv. Próprio',sec:'Seção 3 – Cobertura'},
+  {id:'qualidade_parceiros',label:'Qualidade Serv. Parceiros',sec:'Seção 3 – Cobertura'},
+  {id:'veic_proprio',label:'Veículos Próprios',sec:'Seção 4 – Frota'},
+  {id:'veic_terc',label:'Veículos Terceirizados',sec:'Seção 4 – Frota'},
+  {id:'tipos_veiculos',label:'Tipos de Veículos',sec:'Seção 4 – Frota'},
+  {id:'capacidade_carga',label:'Capacidade de Carga',sec:'Seção 4 – Frota'},
+  {id:'restricoes_itens',label:'Restrições de Itens',sec:'Seção 4 – Frota',type:'radio'},
+  {id:'restricoes_itens_det',label:'Restrições – Detalhe',sec:'Seção 4 – Frota'},
+  {id:'motoristas_tipo',label:'Motoristas Próprios/Terc.',sec:'Seção 5 – Motoristas',type:'radio'},
+  {id:'exp_motoristas',label:'Experiência Motoristas',sec:'Seção 5 – Motoristas'},
+  {id:'cnh',label:'CNH em Dia',sec:'Seção 5 – Motoristas',type:'radio'},
+  {id:'cnh_det',label:'CNH – Detalhe',sec:'Seção 5 – Motoristas'},
+  {id:'trein_bens',label:'Treinamento Bens Pessoais',sec:'Seção 5 – Motoristas',type:'radio'},
+  {id:'trein_bens_det',label:'Treinamento – Detalhe',sec:'Seção 5 – Motoristas'},
+  {id:'aux_carga',label:'Aux. Carregamento',sec:'Seção 5 – Motoristas',type:'radio'},
+  {id:'prot_seg',label:'Protocolo de Segurança',sec:'Seção 5 – Motoristas',type:'radio'},
+  {id:'prot_seg_det',label:'Protocolo – Detalhe',sec:'Seção 5 – Motoristas'},
+  {id:'com_motoristas',label:'Comunicação c/ Motoristas',sec:'Seção 5 – Motoristas'},
+  {id:'aval_desemp',label:'Avaliação de Desempenho',sec:'Seção 5 – Motoristas',type:'radio'},
+  {id:'aval_desemp_det',label:'Avaliação – Detalhe',sec:'Seção 5 – Motoristas'},
+  {id:'doc_danos',label:'Doc. de Danos',sec:'Seção 5 – Motoristas',type:'radio'},
+  {id:'doc_danos_det',label:'Doc. Danos – Detalhe',sec:'Seção 5 – Motoristas'},
+  {id:'limite_horas',label:'Limite Horas Direção',sec:'Seção 5 – Motoristas',type:'radio'},
+  {id:'limite_horas_det',label:'Limite Horas – Detalhe',sec:'Seção 5 – Motoristas'},
+  {id:'emergencias',label:'Protocolos de Emergência',sec:'Seção 5 – Motoristas'},
+  {id:'embalagem_serv',label:'Serv. Embalagem/Desembalagem',sec:'Seção 6 – Embalagem'},
+  {id:'materiais_emb',label:'Materiais de Embalagem',sec:'Seção 6 – Embalagem'},
+  {id:'emb_frageis',label:'Emb. p/ Frágeis',sec:'Seção 6 – Embalagem',type:'radio'},
+  {id:'emb_frageis_det',label:'Emb. Frágeis – Detalhe',sec:'Seção 6 – Embalagem'},
+  {id:'emb_origem',label:'Embala na Origem',sec:'Seção 6 – Embalagem',type:'radio'},
+  {id:'emb_origem_det',label:'Origem – Detalhe',sec:'Seção 6 – Embalagem'},
+  {id:'desemb_dest',label:'Desembala no Destino',sec:'Seção 6 – Embalagem',type:'radio'},
+  {id:'desemb_dest_det',label:'Destino – Detalhe',sec:'Seção 6 – Embalagem'},
+  {id:'descarte',label:'Descarte Responsável',sec:'Seção 6 – Embalagem',type:'radio'},
+  {id:'descarte_det',label:'Descarte – Detalhe',sec:'Seção 6 – Embalagem'},
+  {id:'icamento',label:'Processo de Içamento',sec:'Seção 6 – Embalagem'},
+  {id:'excluidos_escopo',label:'Serviços Excluídos do Escopo',sec:'Seção 6 – Embalagem'},
+  {id:'armazen',label:'Oferece Armazenamento',sec:'Seção 7 – Armazenamento',type:'radio'},
+  {id:'armazen_det',label:'Armazenamento – Detalhe',sec:'Seção 7 – Armazenamento'},
+  {id:'instalacoes',label:'Instalações e Segurança',sec:'Seção 7 – Armazenamento'},
+  {id:'custo_armazen',label:'Modelo de Custo do Armazenamento',sec:'Seção 7 – Armazenamento'},
+  {id:'rastreio',label:'Rastreamento Online',sec:'Seção 8 – Tecnologia',type:'radio'},
+  {id:'rastreio_det',label:'Rastreamento – Detalhe',sec:'Seção 8 – Tecnologia'},
+  {id:'sistema_gestao',label:'Sistema de Gestão',sec:'Seção 8 – Tecnologia',type:'radio'},
+  {id:'sistema_gestao_det',label:'Sistema – Detalhe',sec:'Seção 8 – Tecnologia'},
+  {id:'com_mudanca',label:'Comunicação durante Mudança',sec:'Seção 8 – Tecnologia'},
+  {id:'contato_24h',label:'Contato 24h/7',sec:'Seção 8 – Tecnologia',type:'radio'},
+  {id:'contato_24h_det',label:'Contato 24h – Detalhe',sec:'Seção 8 – Tecnologia'},
+  {id:'problemas_proc',label:'Gestão de Problemas',sec:'Seção 8 – Tecnologia'},
+  {id:'modelo_preco',label:'Modelo de Precificação',sec:'Seção 9 – Preços'},
+  {id:'taxas_ocultas',label:'Taxas Ocultas',sec:'Seção 9 – Preços',type:'radio'},
+  {id:'taxas_ocultas_det',label:'Taxas – Detalhe',sec:'Seção 9 – Preços'},
+  {id:'incluidos_escopo',label:'Itens Incluídos no Escopo',sec:'Seção 9 – Preços'},
+  {id:'excluidos_escopo2',label:'Itens Excluídos do Escopo',sec:'Seção 9 – Preços'},
+  {id:'pct_ocorrencias',label:'% Ocorrências (12 meses)',sec:'Seção 10 – SLA'},
+  {id:'reputacao',label:'Reputação de Atendimento',sec:'Seção 11 – Atendimento'},
+  {id:'depoimentos',label:'Depoimentos Disponíveis',sec:'Seção 11 – Atendimento',type:'radio'},
+  {id:'depoimentos_det',label:'Depoimentos – Detalhe',sec:'Seção 11 – Atendimento'},
+  {id:'reclamacoes',label:'Gestão de Reclamações',sec:'Seção 11 – Atendimento'},
+  {id:'disputas',label:'Resolução de Disputas',sec:'Seção 11 – Atendimento'},
+  {id:'rntrc',label:'RNTRC Válido',sec:'Seção 12 – Documentação',type:'radio'},
+  {id:'rntrc_det',label:'RNTRC – Detalhe',sec:'Seção 12 – Documentação'},
+  {id:'cnt',label:'CNT/ANTT',sec:'Seção 12 – Documentação',type:'radio'},
+  {id:'cnt_det',label:'CNT – Detalhe',sec:'Seção 12 – Documentação'},
+  {id:'docs_legais',label:'Docs Legais em Dia',sec:'Seção 12 – Documentação',type:'radio'},
+  {id:'docs_legais_det',label:'Docs Legais – Detalhe',sec:'Seção 12 – Documentação'},
+  {id:'iso9001',label:'ISO 9001',sec:'Seção 12 – Documentação',type:'radio'},
+  {id:'iso9001_det',label:'ISO 9001 – Detalhe/Validade',sec:'Seção 12 – Documentação'},
+  {id:'abrafem',label:'Filiada ABRAFEM',sec:'Seção 12 – Documentação',type:'radio'},
+  {id:'abrafem_det',label:'ABRAFEM – Detalhe',sec:'Seção 12 – Documentação'},
+  {id:'seg_rc',label:'Seguro RC',sec:'Seção 12 – Documentação',type:'radio'},
+  {id:'seg_rc_det',label:'Seguro RC – Detalhe',sec:'Seção 12 – Documentação'},
+  {id:'seg_carga',label:'Seguro de Carga',sec:'Seção 12 – Documentação',type:'radio'},
+  {id:'seg_carga_det',label:'Seguro Carga – Detalhe',sec:'Seção 12 – Documentação'},
+  {id:'crlv',label:'CRLV e Tacógrafo',sec:'Seção 12 – Documentação',type:'radio'},
+  {id:'crlv_det',label:'CRLV – Detalhe',sec:'Seção 12 – Documentação'},
+  {id:'toxicologico',label:'Exames Toxicológicos',sec:'Seção 13 – Segurança Operacional'},
+  {id:'testes_alcool',label:'Testes Aleatórios Álcool/Drogas',sec:'Seção 13 – Segurança Operacional',type:'radio'},
+  {id:'testes_alcool_det',label:'Testes – Detalhe',sec:'Seção 13 – Segurança Operacional'},
+  {id:'risco_comp',label:'Monitoramento de Comportamentos de Risco',sec:'Seção 13 – Segurança Operacional'},
+  {id:'pol_substancias',label:'Política sobre Substâncias',sec:'Seção 13 – Segurança Operacional',type:'radio'},
+  {id:'pol_substancias_det',label:'Substâncias – Detalhe',sec:'Seção 13 – Segurança Operacional'},
+  {id:'prev_dep',label:'Prev. Dependência Química',sec:'Seção 14 – Saúde Ocupacional',type:'radio'},
+  {id:'prev_dep_det',label:'Prev. Dep. – Detalhe',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'canais_conf',label:'Canais Confidenciais',sec:'Seção 14 – Saúde Ocupacional',type:'radio'},
+  {id:'canais_conf_det',label:'Canais – Detalhe',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'pae',label:'PAE/EAP',sec:'Seção 14 – Saúde Ocupacional',type:'radio'},
+  {id:'pae_det',label:'PAE – Detalhe',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'clinicas',label:'Parcerias Clínicas',sec:'Seção 14 – Saúde Ocupacional',type:'radio'},
+  {id:'clinicas_det',label:'Clínicas – Detalhe',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'trein_lideres',label:'Treinamento Líderes (Dependência)',sec:'Seção 14 – Saúde Ocupacional',type:'radio'},
+  {id:'trein_lideres_det',label:'Trein. Líderes – Detalhe',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'afastamento_pol',label:'Política de Afastamento',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'reintegracao',label:'Reintegração Gradual',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'acomp_recup',label:'Acompanhamento na Recuperação',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'conf_medica',label:'Confidencialidade Médica',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'estigma',label:'Prevenção de Estigmatização',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'estresse_motorista',label:'Estresse do Motorista',sec:'Seção 14 – Saúde Ocupacional'},
+  {id:'politica_di',label:'Política D&I',sec:'Seção 15 – D&I',type:'radio'},
+  {id:'politica_di_det',label:'D&I – Detalhe',sec:'Seção 15 – D&I'},
+  {id:'eq_diversa',label:'Equipe Diversa',sec:'Seção 15 – D&I',type:'radio'},
+  {id:'eq_diversa_det',label:'Equipe Diversa – Detalhe',sec:'Seção 15 – D&I'},
+  {id:'metas_inc',label:'Metas de Contratação Inclusiva',sec:'Seção 15 – D&I',type:'radio'},
+  {id:'metas_inc_det',label:'Metas Inclusão – Detalhe',sec:'Seção 15 – D&I'},
+  {id:'conscient_di',label:'Conscientização D&I',sec:'Seção 15 – D&I'},
+  {id:'acessibilidade',label:'Acessibilidade em Mudanças',sec:'Seção 15 – D&I'},
+  {id:'adapt_veic',label:'Adaptações Veículos/PcD',sec:'Seção 15 – D&I',type:'radio'},
+  {id:'adapt_veic_det',label:'Adaptações – Detalhe',sec:'Seção 15 – D&I'},
+  {id:'esg',label:'Práticas ESG',sec:'Seção 16 – ESG',type:'radio'},
+  {id:'esg_det',label:'ESG – Detalhe',sec:'Seção 16 – ESG'},
+  {id:'sustentabilidade',label:'Práticas Sustentáveis',sec:'Seção 16 – ESG'},
+  {id:'emissoes',label:'Política Redução Emissões',sec:'Seção 16 – ESG',type:'radio'},
+  {id:'emissoes_det',label:'Emissões – Detalhe',sec:'Seção 16 – ESG'},
+  {id:'acoes_sociais',label:'Ações Sociais',sec:'Seção 16 – ESG',type:'radio'},
+  {id:'acoes_sociais_det',label:'Ações Sociais – Detalhe',sec:'Seção 16 – ESG'},
+  {id:'doacao',label:'Programa de Doação',sec:'Seção 16 – ESG',type:'radio'},
+  {id:'doacao_det',label:'Doação – Detalhe',sec:'Seção 16 – ESG'},
+  {id:'pol_assedio',label:'Política Antidiscriminação/Assédio',sec:'Seção 17 – Compliance',type:'radio'},
+  {id:'pol_assedio_det',label:'Assédio – Detalhe',sec:'Seção 17 – Compliance'},
+  {id:'trein_assedio',label:'Nº Treinamentos Assédio (12 meses)',sec:'Seção 17 – Compliance'},
+  {id:'canal_denun',label:'Canal de Denúncias',sec:'Seção 17 – Compliance',type:'radio'},
+  {id:'canal_denun_det',label:'Canal Denúncias – Detalhe',sec:'Seção 17 – Compliance'},
+  {id:'pct_denuncias',label:'% Denúncias Investigadas',sec:'Seção 17 – Compliance'},
+  {id:'medidas_disc',label:'Nº Medidas Disciplinares',sec:'Seção 17 – Compliance'},
+  {id:'compliance_cert',label:'Compliance Certificado',sec:'Seção 17 – Compliance',type:'radio'},
+  {id:'compliance_cert_det',label:'Compliance – Detalhe/Validade',sec:'Seção 17 – Compliance'},
+  {id:'pct_anticorrup',label:'% Trein. Anticorrupção',sec:'Seção 17 – Compliance'},
+  {id:'pct_fraude',label:'% Trein. Fraude/Lavagem',sec:'Seção 17 – Compliance'},
+  {id:'ecovadis',label:'EcoVadis Assessment',sec:'Seção 18 – EcoVadis',type:'radio'},
+  {id:'ecovadis_nota',label:'Nota EcoVadis',sec:'Seção 18 – EcoVadis'},
+  {id:'ecovadis_val',label:'Validade EcoVadis',sec:'Seção 18 – EcoVadis'},
+];
+
+// ===================== HELPERS =====================
+function getVal(id, type) {
+  if (type === 'radio') {
+    const el = document.querySelector('input[name="'+id+'"]:checked');
+    return el ? el.value : '';
+  }
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+function setVal(id, val, type) {
+  if (type === 'radio') {
+    const els = document.querySelectorAll('input[name="'+id+'"]');
+    els.forEach(e => { e.checked = (e.value === val); });
+    if (id === 'ecovadis') toggleEcovadis(val === 'Sim');
+    return;
+  }
+  const el = document.getElementById(id);
+  if (el) el.value = val || '';
+}
+function collectData() {
+  const data = {};
+  FIELDS.forEach(f => { data[f.id] = getVal(f.id, f.type); });
+  return data;
+}
+function fillForm(data) {
+  FIELDS.forEach(f => { setVal(f.id, data[f.id] || '', f.type); });
+}
+function calcFill(data) {
+  const total = FIELDS.length;
+  const filled = FIELDS.filter(f => data[f.id] && data[f.id].toString().trim() !== '').length;
+  return Math.round((filled / total) * 100);
+}
+
+// ===================== CNPJ MASK =====================
+document.getElementById('cnpj').addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'').slice(0,14);
+  if (v.length > 12) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2}).*/,'$1.$2.$3/$4-$5');
+  else if (v.length > 8) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4}).*/,'$1.$2.$3/$4');
+  else if (v.length > 5) v = v.replace(/^(\d{2})(\d{3})(\d{0,3}).*/,'$1.$2.$3');
+  else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,3}).*/,'$1.$2');
+  this.value = v;
+});
+
+// ===================== PROGRESS =====================
+function updateProgress() {
+  const data = collectData();
+  const pct = calcFill(data);
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('prog-pct').textContent = pct + '%';
+}
+document.getElementById('supplierForm').addEventListener('input', updateProgress);
+document.getElementById('supplierForm').addEventListener('change', updateProgress);
+
+// ===================== ECOVADIS TOGGLE =====================
+function toggleEcovadis(show) {
+  document.getElementById('ecovadis_sim').style.display = show ? 'block' : 'none';
+  document.getElementById('ecovadis_nao').style.display = show ? 'none' : 'block';
+}
+
+// ===================== TABS =====================
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  const idx = {formulario:0,salvos:1,comparativo:2}[tab];
+  document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  if (tab === 'salvos') renderSaved();
+  if (tab === 'comparativo') renderCompare();
+}
+
+// ===================== STORAGE =====================
+function getSuppliers() {
+  return JSON.parse(localStorage.getItem('syngenta_suppliers') || '[]');
+}
+function saveSuppliers(list) {
+  localStorage.setItem('syngenta_suppliers', JSON.stringify(list));
+}
+function saveOnly() {
+  const data = collectData();
+  if (!data.razao_social || !data.cnpj) { showToast('⚠️ Preencha Razão Social e CNPJ antes de salvar.','#e67e22'); return; }
+  let list = getSuppliers();
+  const idx = list.findIndex(s => s.cnpj === data.cnpj);
+  data._fill = calcFill(data);
+  data._saved = new Date().toLocaleString('pt-BR');
+  if (idx >= 0) { list[idx] = data; showToast('✅ Fornecedor atualizado com sucesso!'); }
+  else { list.push(data); showToast('✅ Fornecedor salvo com sucesso!'); }
+  saveSuppliers(list);
+}
+function clearForm() {
+  if (!confirm('Deseja limpar todos os campos do formulário?')) return;
+  FIELDS.forEach(f => setVal(f.id, '', f.type));
+  updateProgress();
+}
+function editSupplier(cnpj) {
+  const list = getSuppliers();
+  const s = list.find(x => x.cnpj === cnpj);
+  if (s) { fillForm(s); updateProgress(); switchTab('formulario'); showToast('✏️ Formulário carregado para edição.'); }
+}
+
+let pendingDeleteCnpj = null;
+function deleteSupplier(cnpj) { pendingDeleteCnpj = cnpj; document.getElementById('deleteModal').classList.add('open'); }
+function closeModal() { document.getElementById('deleteModal').classList.remove('open'); pendingDeleteCnpj = null; }
+function confirmDelete() {
+  if (!pendingDeleteCnpj) return;
+  let list = getSuppliers().filter(s => s.cnpj !== pendingDeleteCnpj);
+  saveSuppliers(list); closeModal(); renderSaved(); showToast('🗑️ Fornecedor excluído.');
+}
+
+// ===================== RENDER SAVED =====================
+function renderSaved() {
+  const list = getSuppliers();
+  const el = document.getElementById('savedList');
+  if (!list.length) { el.innerHTML = '<div class="empty-state">Nenhum fornecedor salvo ainda.<br>Preencha o formulário e clique em "Salvar".</div>'; return; }
+  el.innerHTML = list.map(s => `
+    <div class="supplier-card">
+      <div class="supplier-info">
+        <h3>${s.razao_social || '–'} <span style="font-size:.78rem;color:#999;">${s.nome_fantasia ? '('+s.nome_fantasia+')' : ''}</span></h3>
+        <p>CNPJ: ${s.cnpj || '–'} &nbsp;|&nbsp; ${s.cidade_estado || '–'} &nbsp;|&nbsp; Salvo em: ${s._saved || '–'}</p>
+        <div class="fill-bar"><div class="fill-bar-inner" style="width:${s._fill||0}%"></div></div>
+        <p style="font-size:.78rem;margin-top:3px;color:var(--green-dark);">Preenchimento: ${s._fill||0}%</p>
+      </div>
+      <div class="supplier-actions">
+        <button class="btn btn-secondary btn-sm" onclick="editSupplier('${s.cnpj}')">✏️ Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteSupplier('${s.cnpj}')">🗑️ Excluir</button>
+      </div>
+    </div>`).join('');
+}
+
+// ===================== RENDER COMPARE =====================
+function renderCompare() {
+  const list = getSuppliers();
+  const el = document.getElementById('compareTable');
+  if (!list.length) { el.innerHTML = '<div class="empty-state">Nenhum fornecedor salvo para comparar.</div>'; return; }
+  const sections = [...new Set(FIELDS.map(f => f.sec))];
+  let html = '<table class="compare-table"><thead><tr><th>Campo</th>';
+  list.forEach(s => { html += `<th>${s.razao_social||'–'}<br><small>${s.cnpj||''}</small></th>`; });
+  html += '</tr></thead><tbody>';
+  sections.forEach(sec => {
+    html += `<tr class="row-section"><td colspan="${list.length+1}">${sec}</td></tr>`;
+    FIELDS.filter(f => f.sec === sec).forEach(f => {
+      html += `<tr><td><strong>${f.label}</strong></td>`;
+      list.forEach(s => { html += `<td>${(s[f.id]||'').toString().replace(/\n/g,'<br>') || '<span style="color:#ccc">–</span>'}</td>`; });
+      html += '</tr>';
+    });
+  });
+  html += '</tbody></table>';
+  el.innerHTML = html;
+}
+
+// ===================== EXPORT JSON =====================
+function exportJSON() {
+  const list = getSuppliers();
+  if (!list.length) { showToast('Nenhum fornecedor para exportar.','#e67e22'); return; }
+  const blob = new Blob([JSON.stringify(list, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'Fornecedores_Syngenta_Mudanca.json'; a.click();
+}
+
+// ===================== EXPORT CSV =====================
+function exportCSV() {
+  const list = getSuppliers();
+  if (!list.length) { showToast('Nenhum fornecedor para exportar.','#e67e22'); return; }
+  const header = ['Seção','Campo', ...list.map(s => s.razao_social || s.cnpj || 'Fornecedor')];
+  const rows = [header];
+  FIELDS.forEach(f => {
+    const row = [f.sec, f.label, ...list.map(s => (s[f.id]||'').toString().replace(/\r?\n/g,' | '))];
+    rows.push(row);
+  });
+  const csv = '\uFEFF' + rows.map(r => r.map(c => '"'+String(c).replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'Comparativo_Fornecedores_Syngenta.csv'; a.click();
+}
+
+// ===================== DOWNLOAD FORMULÁRIO PREENCHIDO =====================
+function downloadFilledHTML() {
+  const data = collectData();
+  if (!data.razao_social || !data.cnpj) { showToast('⚠️ Preencha Razão Social e CNPJ antes de baixar.','#e67e22'); return; }
+  saveOnly();
+  const nome = (data.razao_social||'Fornecedor').replace(/[^a-zA-Z0-9À-ú ]/g,'_').replace(/ /g,'_');
+  const filledHtml = generateFilledHTML(data);
+  const blob = new Blob([filledHtml], {type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Fornecedor_'+nome+'.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showToast('✅ Arquivo baixado na pasta Downloads!');
+}
+
+function generateFilledHTML(data) {
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Respostas – ${data.razao_social||'Fornecedor'} | Syngenta</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f0;color:#222;margin:0;padding:0;}
+header{background:#1a7a3c;color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px;}
+header h1{font-size:1.1rem;margin:0;}
+.banner-confirm{background:#e8f5ee;border-left:4px solid #1a7a3c;padding:14px 22px;margin:20px 28px;border-radius:6px;font-size:.95rem;color:#145f2f;}
+.section-card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.09);margin:14px 28px;overflow:hidden;}
+.section-header{background:#1a7a3c;color:#fff;padding:11px 18px;font-weight:700;}
+.field-row{padding:10px 18px;border-bottom:1px solid #f0f0f0;display:flex;gap:16px;}
+.field-label{font-weight:600;min-width:260px;color:#444;font-size:.88rem;}
+.field-val{color:#222;font-size:.9rem;white-space:pre-wrap;}
+</style>
+</head>
+<body>
+<header>
+  <svg width="32" height="32" viewBox="0 0 36 36"><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M10 22c2-6 8-12 16-10-4 2-8 6-9 10H10z" fill="#1a7a3c"/><path d="M18 26c0-4 3-9 8-10-2 4-3 8-8 10z" fill="#1a7a3c"/></svg>
+  <h1>Syngenta – Mapeamento Fornecedores Mudança Nacional &nbsp;|&nbsp; ${data.razao_social||'Fornecedor'}</h1>
+</header>
+<div class="banner-confirm">✅ <strong>Respostas recebidas com sucesso.</strong> Este arquivo contém o questionário preenchido por <strong>${data.razao_social||'–'}</strong>.</div>
+${(() => {
+  const sections = [...new Set(FIELDS.map(f=>f.sec))];
+  return sections.map(sec=>{
+    const rows = FIELDS.filter(f=>f.sec===sec).map(f=>`<div class="field-row"><span class="field-label">${f.label}</span><span class="field-val">${(data[f.id]||'–').toString()}</span></div>`).join('');
+    return `<div class="section-card"><div class="section-header">${sec}</div>${rows}</div>`;
+  }).join('');
+})()}
+</body>
+</html>`;
+}
+
+// ===================== TOAST =====================
+function showToast(msg, color) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color || '#1a7a3c';
+  t.style.display = 'block';
+  setTimeout(()=>{ t.style.display='none'; }, 3500);
+}
+
+
+// ===================== IMPORT SUPPLIER HTML =====================
+function importSupplierHTML(input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  let processed = 0;
+  let imported = 0;
+  let skipped = 0;
+  let feedback = [];
+
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      processed++;
+      const content = e.target.result;
+      let data = null;
+
+      // Try to extract embedded JSON data (safeData from generateFilledHTML)
+      // The filled HTML has the data embedded as a JS variable or inline
+      // We look for the data in the field-val spans
+      try {
+        // Parse from the filled HTML field-val spans
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(content, 'text/html');
+        const fieldRows = doc.querySelectorAll('.field-row');
+        if (fieldRows.length > 0) {
+          data = {};
+          // Build a label->id map
+          const labelMap = {};
+          FIELDS.forEach(f => { labelMap[f.label] = f.id; });
+          fieldRows.forEach(row => {
+            const labelEl = row.querySelector('.field-label');
+            const valEl = row.querySelector('.field-val');
+            if (labelEl && valEl) {
+              const label = labelEl.textContent.trim();
+              const val = valEl.textContent.trim() === '–' ? '' : valEl.textContent.trim();
+              const fid = labelMap[label];
+              if (fid) data[fid] = val;
+            }
+          });
+        }
+      } catch(err) { data = null; }
+
+      // Fallback: try to find JSON in script tags or localStorage dump
+      if (!data || !data.razao_social) {
+        try {
+          const match = content.match(/localStorage\.setItem[^;]*?(\{[\s\S]*?\})\s*\)/);
+          if (match) data = JSON.parse(match[1]);
+        } catch(e) {}
+      }
+
+      if (data && data.razao_social && data.cnpj) {
+        let list = getSuppliers();
+        const idx = list.findIndex(s => s.cnpj === data.cnpj);
+        data._fill = calcFill(data);
+        data._saved = new Date().toLocaleString('pt-BR');
+        data._source = file.name;
+        if (idx >= 0) {
+          list[idx] = data;
+          feedback.push('🔄 <strong>' + data.razao_social + '</strong> — atualizado');
+        } else {
+          list.push(data);
+          feedback.push('✅ <strong>' + data.razao_social + '</strong> — importado');
+          imported++;
+        }
+        saveSuppliers(list);
+      } else {
+        feedback.push('⚠️ <strong>' + file.name + '</strong> — não foi possível extrair dados. Verifique se é um arquivo gerado por este formulário.');
+        skipped++;
+      }
+
+      if (processed === files.length) {
+        renderSaved();
+        const fb = document.getElementById('importFeedback');
+        fb.innerHTML = '<div style="background:#e8f5ee;border-left:4px solid #1a7a3c;padding:12px 16px;border-radius:6px;font-size:.88rem;line-height:1.8;">'
+          + feedback.join('<br>') + '</div>';
+        showToast('Importação concluída: ' + (imported + (files.length - skipped - imported)) + ' fornecedor(es) processado(s).');
+        input.value = '';
+      }
+    };
+    reader.readAsText(file, 'UTF-8');
+  });
+}
+
+// ===================== INIT =====================
+updateProgress();
+</script>
+</body>
+</html>
